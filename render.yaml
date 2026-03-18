@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: irs-tax-calculator
+    env: python
+    buildCommand: pip install -r requirements.txt && python fetch_irs_data.py --offline
+    startCommand: gunicorn app_v2:app --bind 0.0.0.0:$PORT --workers 2
+    envVars:
+      - key: FLASK_ENV
+        value: production
+    autoDeploy: true
